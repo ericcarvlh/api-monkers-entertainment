@@ -114,3 +114,8 @@ Constraint primary key(cd_genero, cd_usuario)
 
 Insert into tbl_Foto_Perfil values
 (default, 'https://api-monkers-entertainment.000webhostapp.com/foto-perfil.png');
+
+select * from tbl_Foto_Perfil;
+
+Insert into tbl_Usuario (cd_usuario, nome_usuario, email_usuario, senha_usuario, cd_foto_perfil) values 
+(default, 'Raur', 'raur@gmail.com', 'ruarEstranho', 1);
