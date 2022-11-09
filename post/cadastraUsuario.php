@@ -1,8 +1,13 @@
 <?php
 
+$host = "sql10.freemysqlhosting.net";
+$username = "sql10550742";
+$password = "iAVbBk1fSD";
+$dbname = "sql10550742";
+
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     
-    $connection_string = mysqli_connect("db4free.net", "monkersenter", "47735428", "db_monkers_enter")
+    $connection_string = mysqli_connect($host, $username, $password, $dbname)
     or die 
     ("Problema ao conecter-se ao servidor.");
 
@@ -14,7 +19,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         echo "Não foi possível conectar ao banco MySQL."; 
         exit;
     } else {
-        echo "Parabéns!! A conexão ao banco de dados ocorreu normalmente!.";
+        $cmd = "Insert into tbl_Usuario (cd_usuario, nome_usuario, email_usuario, senha_usuario, cd_foto_perfil) values 
+        (default, '$nm_usuario', '$email_usuario', '$senha_usuario', 1)";
+        
+        if(mysqli_query($connection_string, $cmd) or die (mysqli_error($connection_string)))
+            echo ("True");
+        else
+            echo ("False");
     }
 
     mysqli_close($connection_string);
