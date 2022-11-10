@@ -1,5 +1,7 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
+
 $host = "sql10.freemysqlhosting.net";
 $username = "sql10550742";
 $password = "iAVbBk1fSD";
@@ -31,10 +33,19 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         $result = mysqli_query($connection_string, $cmd); 
         $busca_por_nome_usuario_e_senha = mysqli_num_rows($result);
 
-        if($busca_por_email_e_senha != 0 || $busca_por_nome_usuario_e_senha != 0) 
-            echo "True";
-        else
-            echo "False";
+        $response = [];
+
+        if($busca_por_email_e_senha != 0 || $busca_por_nome_usuario_e_senha != 0) {
+            $response = [
+            'response' => 'True',
+            ];
+        } else { 
+            $response = [
+            'response' => 'False',
+            ];
+        }
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
     }
 
     mysqli_close($connection_string);
