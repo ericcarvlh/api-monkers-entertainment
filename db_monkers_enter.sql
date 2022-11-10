@@ -119,3 +119,46 @@ select * from tbl_Foto_Perfil;
 
 Insert into tbl_Usuario (cd_usuario, nome_usuario, email_usuario, senha_usuario, cd_foto_perfil) values 
 (default, 'Raur', 'raur@gmail.com', 'ruarEstranho', 1);
+
+create view vw_consultaDadosLogin
+	as
+	select
+	usu.cd_usuario,
+	usu.nome_usuario,
+	usu.email_usuario,
+	usu.senha_usuario,
+	ft.cd_foto_perfil,
+	ft.url_foto_perfil
+	from tbl_Usuario as usu inner join tbl_Foto_Perfil as ft
+	on usu.cd_foto_perfil = ft.cd_foto_perfil;
+
+drop procedure if exists sp_consultaDadosLogin_Com_Email_E_Senha;
+	delimiter $$
+create procedure sp_consultaDadosLogin_Com_Email_E_Senha
+	(
+		in vEmail_usuario varchar(90),
+		in vSenha_usuarioint varchar(15)
+	)
+	begin
+		select * from vw_consultaDadosLogin 
+        where email_usuario = vEmail_usuario
+        and senha_usuario = vSenha_usuarioint;
+	end $$
+		delimiter ;
+
+drop procedure if exists sp_consultaDadosLogin_Com_Usuario_E_Senha;
+	delimiter $$
+create procedure sp_consultaDadosLogin_Com_Usuario_E_Senha
+	(
+		in vNome_usuario varchar(90),
+		in vSenha_usuarioint varchar(15)
+	)
+	begin
+		select * from vw_consultaDadosLogin 
+        where nome_usuario = vNome_usuario
+        and senha_usuario = vSenha_usuarioint;
+	end $$
+		delimiter ;
+        
+call sp_consultaDadosLogin_Com_Email_E_Senha('raur@gmail.com', 'ruarEstranho');
+call sp_consultaDadosLogin_Com_Usuario_E_Senha('Raur', 'ruarEstranho');

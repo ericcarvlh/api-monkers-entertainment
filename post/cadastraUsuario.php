@@ -16,12 +16,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $nm_usuario = $_POST['nm_usuario'];
     $email_usuario = $_POST['email_usuario'];
     $senha_usuario = $_POST['senha_usuario'];
-
     $response = [];
 
     if (!$connection_string) {
-        echo "Não foi possível conectar ao banco MySQL."; 
-        exit;
+        $response = [
+            'databaseConnection' => 'False',
+        ];
     } else {
         $cmd = "Insert into tbl_Usuario (cd_usuario, nome_usuario, email_usuario, senha_usuario, cd_foto_perfil) values 
         (default, '$nm_usuario', '$email_usuario', '$senha_usuario', 1)";
@@ -38,7 +38,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 
     echo json_encode($response);
-
     mysqli_close($connection_string);
 }
 

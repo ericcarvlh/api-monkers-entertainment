@@ -1,5 +1,7 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
+
 $host = "sql10.freemysqlhosting.net";
 $username = "sql10550742";
 $password = "iAVbBk1fSD";
@@ -12,22 +14,32 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     ("Problema ao conecter-se ao servidor.");
 
     $email_usuario = $_GET['email_usuario'];
+    $response = [];
 
     if (!$connection_string) {
-        echo "Não foi possível conectar ao banco MySQL."; 
-        echo '<br>';
-        exit;
+        $response = [
+            'databaseConnection' => 'False',
+        ];
     } else {
-        echo "Parabéns!! A conexão ao banco de dados ocorreu normalmente!";
-        echo '<br>';
+        $cmd = "Select * from tbl_Usuario 
+        where email_usuario = '$email_usuario'";
 
-        $cmd = "select * from  tbl_usuario where email_usuario = '$email_usuario'";
         $result = mysqli_query($connection_string, $cmd); 
-        $rows = mysqli_num_rows($result);
-        echo $rows;
+        $busca_por_email= mysqli_num_rows($result);
+
+        if($busca_por_email != 0) {
+            $response = [
+                'response' => 'True',
+            ];
+        } else { 
+            $response = [
+                'response' => 'False',
+            ];
+        }
 
     }
 
+    echo json_encode($response, JSON_PRETTY_PRINT);
     mysqli_close($connection_string);
 }
 
