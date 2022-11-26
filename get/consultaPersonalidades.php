@@ -14,39 +14,44 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     ("Problema ao conecter-se ao servidor.");
 
     $response = [];
-    $dadosFotoPerfil = [];
+    $dadosPersonalidade = [];
 
     if (!$connection_string) {
         $response = [
             'databaseConnection' => 'False',
         ];
     } else {
-        $cmd = "Select * from tbl_Foto_Perfil limit 5";
-
+        $cmd = "Select * from vw_consultaPersonalidades";
         $result = mysqli_query($connection_string, $cmd); 
-        $busca_por_foto_perfil = mysqli_num_rows($result);
+        $busca_por_personalidades = mysqli_num_rows($result);
 
-        if($busca_por_foto_perfil != 0) {
-
+        if($busca_por_personalidades != 0) {
             $stmt = $connection_string->prepare($cmd);
             $stmt->execute();
-            $stmt->bind_result($cd_foto_perfil, $url_foto_perfil);
+            $stmt->bind_result($cd_personalidade, $nm_personalidade, 
+            $sigla_personalidade, $cd_categoria, $nm_categoria_personalidade);
 
             while($stmt->fetch())
             {
                 $temp = [
-                    'cd_foto_perfil' => $cd_foto_perfil,
-                    'url_foto_perfil' => $url_foto_perfil,
+                    'cd_personalidade' => $cd_personalidade,
+                    'nm_personalidade' => $nm_personalidade,
+                    'sigla_personalidade' => $sigla_personalidade,
+                    'cd_categoria' => $cd_categoria,
+                    'nm_categoria_personalidade' => $nm_categoria_personalidade,
                 ];
-                array_push($dadosFotoPerfil, $temp);
+
+                /* Somente sao salvos 6 elementos  no array, entao irei juntar tudo em um só. */
+
+                array_push($dadosPersonalidade, $temp);
             }
 
             $response = [
                 'response' => 'True',
-                'data' => $dadosFotoPerfil
+                'data' => $dadosPersonalidade
             ];
-            
-        } else { 
+
+        } else {
             $response = [
                 'response' => 'False',
             ];
