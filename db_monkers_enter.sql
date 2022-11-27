@@ -96,7 +96,7 @@ nome_usuario varchar(90) UNIQUE not null,
 data_de_nascimento date null,
 email_usuario varchar(90) UNIQUE not null,
 senha_usuario varchar(15) not null,
-cd_personalidade int,
+cd_personalidade int null,
 cd_foto_perfil int not null,
 Constraint FOREIGN KEY(cd_personalidade) REFERENCES tbl_Personalidade (cd_personalidade),
 Constraint FOREIGN KEY(cd_foto_perfil) REFERENCES tbl_Foto_Perfil (cd_foto_perfil)
@@ -123,8 +123,10 @@ create view vw_consultaDadosLogin
 	select
 	usu.cd_usuario,
 	usu.nome_usuario,
+    usu.data_de_nascimento,
 	usu.email_usuario,
 	usu.senha_usuario,
+    usu.cd_personalidade,
 	ft.cd_foto_perfil,
 	ft.url_foto_perfil
 	from tbl_Usuario as usu inner join tbl_Foto_Perfil as ft
@@ -283,8 +285,60 @@ create view vw_consultaDadosCategoriaPersonalidade
     on gen.cd_genero = ent_gen.cd_genero
     inner join tbl_Tipo_entreterimento as tip
     on ent_gen.cd_entreterimento = tip.cd_entreterimento;
+    
+create view vw_consultaDadosUsuario
+	as
+	select
+	usu.cd_usuario,
+	usu.nome_usuario,
+    usu.data_de_nascimento,
+	usu.email_usuario,
+	usu.senha_usuario,
+	ft.cd_foto_perfil,
+	ft.url_foto_perfil
+	from tbl_Usuario as usu inner join tbl_Foto_Perfil as ft
+	on usu.cd_foto_perfil = ft.cd_foto_perfil;
 
+drop procedure if exists sp_consultaDadosUsuarioPorId;
+	delimiter $$
+create procedure sp_consultaDadosUsuarioPorId
+	(
+		in vCd_usuario int
+	)
+	begin
+		select * from vw_consultaDadosUsuario 
+        where cd_usuario = vCd_usuario;
+	end $$
+		delimiter ;
+
+drop procedure if exists sp_atualizaDadosUsuario;
+	delimiter $$
+create procedure sp_atualizaDadosUsuario
+	(
+		in vCd_usuario int,
+		in vNome_usuario varchar(90),
+		in vData_de_nascimento date, 
+		in vEmail_usuario varchar(90),
+		in vSenha_usuario varchar(15), 
+		in vCd_personalidade int, 
+		in vCd_foto_perfil int
+	)
+	begin
+		update tbl_Usuario
+		set nome_usuario = vNome_usuario,
+		data_de_nascimento = vData_de_nascimento,
+		email_usuario = vEmail_usuario,
+		senha_usuario = vSenha_usuario,
+		cd_personalidade = vCd_personalidade,
+		cd_foto_perfil = vCd_foto_perfil
+		where cd_usuario = vCd_usuario;
+	end $$
+		delimiter ;
+        
+call sp_atualizaDadosUsuario(1, 'dogorBolaEsquerda', NULL, 'dogorberserk@gmail.com', 'souCriminoso', NULL, 4);
+select * from tbl_Usuario;
 /*
+call sp_consultaDadosUsuarioPorId(1);
 select * from tbl_Tipo_Entreterimento;
 select * from tbl_Entreterimento_Genero;
 select * from tbl_Genero;

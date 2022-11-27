@@ -14,12 +14,14 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     ("Problema ao conecter-se ao servidor.");
 
     $response = [];
-    $dadosPersonalidade = [];
+    $dadosPersonalidades = [];
 
     if (!$connection_string) {
         $response = [
             'databaseConnection' => 'False',
         ];
+        
+        echo json_encode($response, JSON_PRETTY_PRINT);
     } else {
         $cmd = "Select * from vw_consultaPersonalidades";
         $result = mysqli_query($connection_string, $cmd); 
@@ -41,24 +43,39 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                     'nm_categoria_personalidade' => $nm_categoria_personalidade,
                 ];
 
-                /* Somente sao salvos 6 elementos  no array, entao irei juntar tudo em um só. */
-
-                array_push($dadosPersonalidade, $temp);
+                array_push($dadosPersonalidades, $temp);
+            }
+            
+            $teste = '[';
+            foreach ($dadosPersonalidades as $index=>$dadosPersonalidade) {
+                $teste .= '{"cd_personalidade": "'. 
+                $dadosPersonalidade['cd_personalidade'] . '", '.
+                '"nm_personalidade": "'. 
+                $dadosPersonalidade['nm_personalidade'] . '", '.
+                '"sigla_personalidade": "'. 
+                $dadosPersonalidade['sigla_personalidade'] . '", ' .
+                '"cd_categoria": "'. 
+                $dadosPersonalidade['cd_categoria'] . '", ' .
+                '"nm_categoria_personalidade": "'. 
+                $dadosPersonalidade['nm_categoria_personalidade'] . '"' ;
+                if($index < (sizeof($dadosPersonalidades)-1))
+                    $teste .= "},";
+                else
+                    $teste .= "}]";
             }
 
-            $response = [
-                'response' => 'True',
-                'data' => $dadosPersonalidade
-            ];
-
+            echo $teste;
+            
         } else {
             $response = [
                 'response' => 'False',
             ];
+            
+            echo json_encode($response, JSON_PRETTY_PRINT);
         }
+        
     }
 
-    echo json_encode($response, JSON_PRETTY_PRINT);
     mysqli_close($connection_string);
 }
 
