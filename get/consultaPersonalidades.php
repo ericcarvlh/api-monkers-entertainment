@@ -8,10 +8,10 @@ $password = "nGL9h6etHc";
 $dbname = "sql10580979";
 
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
-    
     $connection_string = mysqli_connect($host, $username, $password, $dbname)
     or die 
     ("Problema ao conecter-se ao servidor.");
+    $connection_string->set_charset('utf8mb4');
 
     $response = [];
     $dadosPersonalidades = [];
@@ -20,8 +20,6 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         $response = [
             'databaseConnection' => 'False',
         ];
-        
-        echo json_encode($response, JSON_PRETTY_PRINT);
     } else {
         $cmd = "Select * from vw_consultaPersonalidades";
         $result = mysqli_query($connection_string, $cmd); 
@@ -46,36 +44,18 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                 array_push($dadosPersonalidades, $temp);
             }
             
-            $teste = '[';
-            foreach ($dadosPersonalidades as $index=>$dadosPersonalidade) {
-                $teste .= '{"cd_personalidade": "'. 
-                $dadosPersonalidade['cd_personalidade'] . '", '.
-                '"nm_personalidade": "'. 
-                $dadosPersonalidade['nm_personalidade'] . '", '.
-                '"sigla_personalidade": "'. 
-                $dadosPersonalidade['sigla_personalidade'] . '", ' .
-                '"cd_categoria": "'. 
-                $dadosPersonalidade['cd_categoria'] . '", ' .
-                '"nm_categoria_personalidade": "'. 
-                $dadosPersonalidade['nm_categoria_personalidade'] . '"' ;
-                if($index < (sizeof($dadosPersonalidades)-1))
-                    $teste .= "},";
-                else
-                    $teste .= "}]";
-            }
-
-            echo $teste;
-            
+            $response = [
+                'response' => 'True',
+                'data' => $dadosPersonalidades
+            ];
         } else {
             $response = [
                 'response' => 'False',
             ];
-            
-            echo json_encode($response, JSON_PRETTY_PRINT);
-        }
-        
+        } 
     }
 
+    echo json_encode($response, JSON_PRETTY_PRINT);
     mysqli_close($connection_string);
 }
 
