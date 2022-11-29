@@ -80,3 +80,4 @@ create view vw_consultaDadosUsuario
 select * from vw_consultaPersonalidades;
 select * from vw_consultaCategoriasPersonalidades where cd_personalidade = 2;
 select * from vw_consultaDadosCategoriaPersonalidade;
+select * from vw_consultadadosgeneros;
