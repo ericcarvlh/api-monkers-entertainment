@@ -2,19 +2,19 @@ use db_monkers_enter;
 
 /* Inserindo fotos de perfil no banco */
 Insert into tbl_Foto_Perfil values
-(1, 'https://cdn.discordapp.com/attachments/1016110803641970698/1044997956731944980/monkeyyssluffy.png'),
-(2, 'https://cdn.discordapp.com/attachments/1016110803641970698/1044997957247848519/monkeyysscoringa-removebg-preview.png'),
-(3, 'https://cdn.discordapp.com/attachments/1016110803641970698/1044997957780512839/monkeyysseapol-removebg-preview.png'),
-(4, 'https://cdn.discordapp.com/attachments/1016110803641970698/1044997958204145784/monkeyyssterror-removebg-preview.png'),
-(5, 'https://cdn.discordapp.com/attachments/1016110803641970698/1044997958623567912/MONKRED.png');
+(1, 'https://cdn.discordapp.com/attachments/1016110803641970698/1046892004157693992/monkeyyssluffy.png'),
+(2, 'https://cdn.discordapp.com/attachments/1016110803641970698/1046892003750842368/monkeyysscoringa.png'),
+(3, 'https://cdn.discordapp.com/attachments/1016110803641970698/1046892003339808768/monkeyysseapol.png'),
+(4, 'https://cdn.discordapp.com/attachments/1016110803641970698/1046892002979090452/monkeyyssterror.png'),
+(5, 'https://cdn.discordapp.com/attachments/1016110803641970698/1046891404053454848/MONKRED.png');
 
 /* Inserindo usuários no banco */
-Insert into tbl_Usuario (cd_usuario, nome_usuario, email_usuario, senha_usuario, cd_foto_perfil) values 
-(default, 'dogorBolaEsquerda', 'dogorberserk@gmail.com', 'souCriminoso', 4),
-(default, 'Raur', 'raur@gmail.com', 'ruarEstranho', 2),
-(default, 'nanaca', 'nanadorau@gmail.com', 'rauzinho123', 5),
-(default, 'tonyto', 'ehotom@gmail.com', 'ster321', 3),
-(default, 'ercio', 'erico@gmail.com', 'euamovcs123', 1);
+Insert into tbl_Usuario (cd_usuario, nome_usuario, data_de_cadastro, email_usuario, senha_usuario, cd_foto_perfil) values 
+(default, 'dogorBolaEsquerda', NOW(), 'dogorberserk@gmail.com', 'souCriminoso', 4),
+(default, 'Raur', NOW(), 'raur@gmail.com', 'ruarEstranho', 2),
+(default, 'nanaca', NOW(), 'nanadorau@gmail.com', 'rauzinho123', 5),
+(default, 'tonyto', NOW(), 'ehotom@gmail.com', 'ster321', 3),
+(default, 'ercio', NOW(), 'erico@gmail.com', 'euamovcs123', 1);
 
 Insert into tbl_Categoria_Personalidade values 
 (1, 'Diplomatas'),

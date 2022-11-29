@@ -94,6 +94,7 @@ CREATE TABLE tbl_Usuario (
 cd_usuario int PRIMARY KEY auto_increment,
 nome_usuario varchar(90) UNIQUE not null,
 data_de_nascimento date null,
+data_de_cadastro datetime not null, 
 email_usuario varchar(90) UNIQUE not null,
 senha_usuario varchar(15) not null,
 cd_personalidade int null,

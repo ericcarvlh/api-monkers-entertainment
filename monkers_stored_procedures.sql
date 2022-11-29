@@ -1,5 +1,19 @@
 use db_monkers_enter;
 
+drop procedure if exists sp_cadastraUsuario;
+	delimiter $$
+create procedure sp_cadastraUsuario
+	(
+		in vNm_usuario varchar(90), 
+        in vEmail_usuario varchar(90),
+        in vSenha_usuario varchar(15)
+    )
+	begin 
+		Insert into tbl_Usuario (cd_usuario, nome_usuario, data_de_cadastro, email_usuario, senha_usuario, cd_foto_perfil) values 
+        (default, vNm_usuario, NOW(), vEmail_usuario, vSenha_usuario, 1);
+	end $$
+		delimiter;
+
 drop procedure if exists sp_consultaDadosLogin_Com_Email_E_Senha;
 	delimiter $$
 create procedure sp_consultaDadosLogin_Com_Email_E_Senha
