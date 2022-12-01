@@ -83,9 +83,41 @@ Insert into tbl_Entreterimento_Genero values
 (2, 10766), (2, 10767), (2, 10768), (2, 37);
 
 /* Inserindo os generos assicuadis as personalidades */
+
+/* Diplomatas */
+/* TV: Ação e aventura,  Drama e Faroeste */
 Insert into tbl_Genero_Categoria_Personalidade values
-(16, 1), (10759, 1), 
-(10770, 1), (80, 1), (10762, 1);
+(10759, 1),  (18, 1), (10751, 1),  (37, 1);
+
+/* Movie: Animação, Aventura, Comédia e Cinema TV */
+Insert into tbl_Genero_Categoria_Personalidade values
+(16, 1), (12, 1), (35, 1), (10770, 1);
+
+/* Analistas */
+/* Tv: News, Documentário, Ficção científica e Animação */
+Insert into tbl_Genero_Categoria_Personalidade values
+(10763, 2), (99, 2), (10765, 2), (16, 2);
+
+/* Movie: Documentário, Romance, Suspense e Mistério */
+Insert into tbl_Genero_Categoria_Personalidade values
+(10749, 2), (53, 2), (9648, 2);
+
+/* Exploradores */
+/* Tv: Crime, Talk, Guerra e Política, */
+Insert into tbl_Genero_Categoria_Personalidade values
+(80, 3), (10767, 3), (10768, 3), (10762, 3);
+/* Movie: Ação, Aventura, Drama e Fantasia */
+Insert into tbl_Genero_Categoria_Personalidade values
+(28, 3), (12, 3), (18, 3), (14, 3);
+
+/* Sentinelas */
+/* Tv: Ação e Aventura, Reality, Soap e Mistério */
+Insert into tbl_Genero_Categoria_Personalidade values
+(10759, 4), (10764, 4), (10766, 4), (9648, 4);
+
+/* Movie: Guerra, História, Ficção científica e Romance*/
+Insert into tbl_Genero_Categoria_Personalidade values
+(10752, 4), (36, 4), (878, 4), (10749, 4);
 
 select * from tbl_Usuario;
 select * from tbl_Personalidade;
