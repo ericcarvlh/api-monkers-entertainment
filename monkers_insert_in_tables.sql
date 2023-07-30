@@ -103,9 +103,11 @@ Insert into tbl_Genero_Categoria_Personalidade values
 (10749, 2), (53, 2), (9648, 2);
 
 /* Exploradores */
+
 /* Tv: Crime, Talk, Guerra e Política, */
 Insert into tbl_Genero_Categoria_Personalidade values
 (80, 3), (10767, 3), (10768, 3), (10762, 3);
+
 /* Movie: Ação, Aventura, Drama e Fantasia */
 Insert into tbl_Genero_Categoria_Personalidade values
 (28, 3), (12, 3), (18, 3), (14, 3);
@@ -115,7 +117,7 @@ Insert into tbl_Genero_Categoria_Personalidade values
 Insert into tbl_Genero_Categoria_Personalidade values
 (10759, 4), (10764, 4), (10766, 4), (9648, 4);
 
-/* Movie: Guerra, História, Ficção científica e Romance*/
+/* Movie: Guerra, História, Ficção científica e Romance */
 Insert into tbl_Genero_Categoria_Personalidade values
 (10752, 4), (36, 4), (878, 4), (10749, 4);
 

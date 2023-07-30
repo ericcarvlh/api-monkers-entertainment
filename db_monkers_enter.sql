@@ -118,3 +118,9 @@ Constraint FOREIGN KEY(cd_cinema) REFERENCES tbl_Cinema (cd_cinema),
 Constraint FOREIGN KEY(cd_ingresso) REFERENCES tbl_Ingresso (cd_ingresso),
 Constraint PRIMARY KEY(cd_cinema, cd_ingresso)
 ) default charset utf8;
+
+select
+nome_usuario as 'Nome de usuário',
+email_usuario as 'E-mail de usuário'
+from tbl_usuario
+where email_usuario = 'dogorberserk@gmail.com';
